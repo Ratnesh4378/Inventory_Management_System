@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'user.apps.UserConfig',
     'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -102,11 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -129,6 +131,14 @@ STATTICFILES_DIRS = [
 ]
 
 STATIC_ROOT=(BASE_DIR/"asert/")
+
+MEDIA_ROOT= (BASE_DIR/'media')
+
+MEDIA_URL='/media/'
+
+LOGIN_REDIRECT_URL='dashboard-index'
+
+LOGIN_URL='user-login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
