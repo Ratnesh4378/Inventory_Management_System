@@ -15,17 +15,26 @@
                     var myChart1 = new Chart(ctx, {
                         type: 'pie',
                         data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            labels: [{% for order in orders %} '{{ order.product.name }}',{% endfor %}],
                             datasets: [{
-                                label: 'Products',
-                                data: [12, 19, 3, 5, 2, 3],
+                                label: 'Orders',
+                                data: [{% for order in orders %} {{order.quantity}}, {% endfor %}],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 1)',
                                     'rgba(54, 162, 235, 1)',
                                     'rgba(255, 206, 86, 1)',
                                     'rgba(75, 192, 192, 1)',
                                     'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(234, 99, 86, 1)',
+                                    'rgba(255, 19, 192, 1)',
+                                    'rgba(178, 99, 255, 1)',
+                                    'rgba(289, 102, 64, 1)',
+                                    'rgba(80, 162, 90, 1)',
+                                    'rgba(230, 90, 86, 1)',
+                                    'rgba(175, 90, 192, 1)',
+                                    'rgba(100, 150, 255, 1)',
+                                    'rgba(159, 255, 64, 1)',
                                 ],
                                 borderColor: [
                                 'rgba(255, 99, 132, 1)',
@@ -33,7 +42,17 @@
                                         'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
                                         'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(211, 162, 235, 1)',
+                                        'rgba(234, 99, 86, 1)',
+                                        'rgba(255, 19, 192, 1)',
+                                        'rgba(178, 99, 255, 1)',
+                                        'rgba(289, 102, 64, 1)',
+                                        'rgba(80, 162, 90, 1)',
+                                        'rgba(230, 90, 86, 1)',
+                                        'rgba(175, 90, 192, 1)',
+                                        'rgba(100, 150, 255, 1)',
+                                        'rgba(159, 255, 64, 1)',
                                     ],
                                     borderWidth: 1
                                 }]
@@ -59,17 +78,26 @@
                         var myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
-                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                labels: [{% for product in products %}  '{{ product.name}}', {% endfor %}],
                                 datasets: [{
                                     label: 'Products',
-                                    data: [12, 19, 3, 5, 2, 3],
+                                    data: [{% for product in products %}  {{ product.quantity}}, {% endfor %}],
                                     backgroundColor: [
                                         'rgba(255, 99, 132, 1)',
                                         'rgba(54, 162, 235, 1)',
                                         'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
                                         'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(234, 99, 86, 1)',
+                                        'rgba(255, 19, 192, 1)',
+                                        'rgba(178, 99, 255, 1)',
+                                        'rgba(289, 102, 64, 1)',
+                                        'rgba(80, 162, 90, 1)',
+                                        'rgba(230, 90, 86, 1)',
+                                        'rgba(175, 90, 192, 1)',
+                                        'rgba(100, 150, 255, 1)',
+                                        'rgba(159, 255, 64, 1)',
                                     ],
                                     borderColor: [
                                         'rgba(255, 99, 132, 1)',
@@ -77,7 +105,16 @@
                                         'rgba(255, 206, 86, 1)',
                                         'rgba(75, 192, 192, 1)',
                                         'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)'
+                                        'rgba(255, 159, 64, 1)',
+                                        'rgba(234, 99, 86, 1)',
+                                        'rgba(255, 19, 192, 1)',
+                                        'rgba(178, 99, 255, 1)',
+                                        'rgba(289, 102, 64, 1)',
+                                        'rgba(80, 162, 90, 1)',
+                                        'rgba(230, 90, 86, 1)',
+                                        'rgba(175, 90, 192, 1)',
+                                        'rgba(100, 150, 255, 1)',
+                                        'rgba(159, 255, 64, 1)',
                                     ],
                                     borderWidth: 1
                                 }]
