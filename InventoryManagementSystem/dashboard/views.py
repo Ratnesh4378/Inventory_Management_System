@@ -5,6 +5,9 @@ from .models import Product,Order
 from .forms import ProductForm,OrderForm
 from django.contrib.auth.models import User
 from django.contrib import messages
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
 # Create your views here.
 
 @login_required
@@ -12,6 +15,29 @@ def index(request):
     #return HttpResponse('This is the index page')
     orders=Order.objects.all()
     products=Product.objects.all()
+    labels=[order.product.name for order in orders]
+    data = [order.quantity for order in orders]
+    plt.figure(figsize=(6, 6))
+    plt.pie(data, labels=labels, autopct='%1.1f%%', startangle=90)
+    plt.title('Orders')
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    pie_chart = base64.b64encode(buffer.read()).decode('utf-8')
+    buffer.close()
+    labels = [product.name for product in products]
+    data = [product.quantity for product in products]
+
+    plt.figure(figsize=(8, 6))
+    plt.bar(labels, data, color='skyblue')
+    plt.title('Products')
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    bar_graph = base64.b64encode(buffer.read()).decode('utf-8')
+    buffer.close()
     if request.method=='POST':
         form=OrderForm(request.POST)
         if form.is_valid():
@@ -25,6 +51,8 @@ def index(request):
         'orders':orders,
         'form':form,
         'products':products,
+        'pie_chart': pie_chart,
+        'bar_graph': bar_graph,
     }
     return render(request,'dashboard/index.html',context)
 

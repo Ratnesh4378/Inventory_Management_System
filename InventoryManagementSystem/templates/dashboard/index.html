@@ -9,127 +9,12 @@
     <div class="row my-5">
         <div class="col-md-6">
             <div class="bg-white">
-                <canvas id="myChart1" width="400" height="300"></canvas>
-                <script>
-                    var ctx = document.getElementById('myChart1').getContext('2d');
-                    var myChart1 = new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                            labels: [{% for order in orders %} '{{ order.product.name }}',{% endfor %}],
-                            datasets: [{
-                                label: 'Orders',
-                                data: [{% for order in orders %} {{order.quantity}}, {% endfor %}],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)',
-                                    'rgba(234, 99, 86, 1)',
-                                    'rgba(255, 19, 192, 1)',
-                                    'rgba(178, 99, 255, 1)',
-                                    'rgba(289, 102, 64, 1)',
-                                    'rgba(80, 162, 90, 1)',
-                                    'rgba(230, 90, 86, 1)',
-                                    'rgba(175, 90, 192, 1)',
-                                    'rgba(100, 150, 255, 1)',
-                                    'rgba(159, 255, 64, 1)',
-                                ],
-                                borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)',
-                                        'rgba(211, 162, 235, 1)',
-                                        'rgba(234, 99, 86, 1)',
-                                        'rgba(255, 19, 192, 1)',
-                                        'rgba(178, 99, 255, 1)',
-                                        'rgba(289, 102, 64, 1)',
-                                        'rgba(80, 162, 90, 1)',
-                                        'rgba(230, 90, 86, 1)',
-                                        'rgba(175, 90, 192, 1)',
-                                        'rgba(100, 150, 255, 1)',
-                                        'rgba(159, 255, 64, 1)',
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
+                <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="bg-white">
-                    <canvas id="myChart" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: [{% for product in products %}  '{{ product.name}}', {% endfor %}],
-                                datasets: [{
-                                    label: 'Products',
-                                    data: [{% for product in products %}  {{ product.quantity}}, {% endfor %}],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)',
-                                        'rgba(234, 99, 86, 1)',
-                                        'rgba(255, 19, 192, 1)',
-                                        'rgba(178, 99, 255, 1)',
-                                        'rgba(289, 102, 64, 1)',
-                                        'rgba(80, 162, 90, 1)',
-                                        'rgba(230, 90, 86, 1)',
-                                        'rgba(175, 90, 192, 1)',
-                                        'rgba(100, 150, 255, 1)',
-                                        'rgba(159, 255, 64, 1)',
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 159, 64, 1)',
-                                        'rgba(234, 99, 86, 1)',
-                                        'rgba(255, 19, 192, 1)',
-                                        'rgba(178, 99, 255, 1)',
-                                        'rgba(289, 102, 64, 1)',
-                                        'rgba(80, 162, 90, 1)',
-                                        'rgba(230, 90, 86, 1)',
-                                        'rgba(175, 90, 192, 1)',
-                                        'rgba(100, 150, 255, 1)',
-                                        'rgba(159, 255, 64, 1)',
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
+                    <img src="data:image/png;base64,{{ bar_graph }}" alt="Bar Chart">
                 </div>
             </div>
         </div>
