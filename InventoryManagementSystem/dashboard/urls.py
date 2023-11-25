@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+#URLS for dashboard, staff, staff-details, product, order, product-delete and product-update pages
 urlpatterns=[
     path('dashboard/',views.index,name='dashboard-index'),
     path('staff/',views.staff,name='dashboard-staff'),

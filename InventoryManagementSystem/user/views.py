@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
 
+#view for the register page
 def register(request):
     if request.method=='POST':
         form=CreateUserForm(request.POST)
@@ -16,9 +17,11 @@ def register(request):
     context={'form': form,}
     return render(request,'user/register.html',context)
 
+#view for the profile page
 def profile(request):
     return render(request,'user/profile.html')
 
+#view for the profile-update page
 def profile_update(request):
     if request.method=='POST':
         user_form= UserUpdateForm(request.POST,instance=request.user)

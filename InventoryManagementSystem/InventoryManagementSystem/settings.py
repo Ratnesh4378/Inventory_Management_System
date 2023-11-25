@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'InventoryManagementSystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':  'invent',
+        'NAME':  'postgres',
         'USER': 'postgres',
-        'PASSWORD': '80858085',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }

@@ -10,19 +10,22 @@ import base64
 from io import BytesIO
 # Create your views here.
 
+#view for the main dashboard page
 @login_required
 def index(request):
-    #return HttpResponse('This is the index page')
     order_count = Order.objects.count() 
     product_count = Product.objects.count() 
     users_count= User.objects.count()
+    #plotting pie chart for the orders and the bar graph for the products
+    
     orders=Order.objects.all()
     products=Product.objects.all()
     labels=[order.product.name for order in orders]
     data = [order.quantity for order in orders]
     plt.figure(figsize=(6, 6))
-    plt.pie(data, labels=labels, autopct='%1.1f%%', startangle=90)
-    plt.title('Orders')
+    wedges, texts, autotexts=plt.pie(data, labels=labels, autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)
+    plt.title('Orders',fontsize=16)
+    plt.legend(wedges, labels, title="Products",loc="center left",bbox_to_anchor=(-0.1, 1))
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
@@ -33,7 +36,7 @@ def index(request):
 
     plt.figure(figsize=(8, 6))
     plt.bar(labels, data, color='skyblue')
-    plt.title('Products')
+    plt.title('Products',fontsize=16)
 
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
@@ -41,6 +44,7 @@ def index(request):
 
     bar_graph = base64.b64encode(buffer.read()).decode('utf-8')
     buffer.close()
+
     if request.method=='POST':
         form=OrderForm(request.POST)
         if form.is_valid():
@@ -62,6 +66,7 @@ def index(request):
     }
     return render(request,'dashboard/index.html',context)
 
+#view for the staff page
 @login_required
 def staff(request):
     #return HttpResponse('This is the staff page')
@@ -77,6 +82,7 @@ def staff(request):
     }
     return render(request,'dashboard/staff.html',context)
 
+#view for the staff_details page , as and when the admin will click on view button
 @login_required
 def staff_detail(request,primaryKey):
     order_count = Order.objects.count() 
@@ -92,6 +98,7 @@ def staff_detail(request,primaryKey):
     }
     return render(request,'dashboard/staff_detail.html',context)
 
+#view for the product page
 @login_required
 def product(request):
     #return HttpResponse('This is the staff page')
@@ -120,6 +127,7 @@ def product(request):
     }
     return render(request,'dashboard/product.html',context)
 
+#view for the order page
 @login_required
 def order(request):
     #return HttpResponse('This is the staff page')
@@ -135,6 +143,7 @@ def order(request):
     }
     return render(request,'dashboard/order.html',context)
 
+#view for the product delete page
 @login_required
 def product_delete(request,primaryKey):
     item= Product.objects.get(id=primaryKey)
@@ -143,6 +152,7 @@ def product_delete(request,primaryKey):
         return redirect('dashboard-product')
     return render(request,'dashboard/product_delete.html')
 
+#view for the product update page
 @login_required
 def product_update(request,primaryKey):
     item= Product.objects.get(id=primaryKey)
