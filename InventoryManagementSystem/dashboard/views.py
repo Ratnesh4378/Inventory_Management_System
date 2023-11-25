@@ -13,11 +13,12 @@ from io import BytesIO
 #view for the main dashboard page
 @login_required
 def index(request):
+    most_recent_entry = Order.objects.latest('date')
+    recent_name=most_recent_entry.staff.username
     order_count = Order.objects.count() 
     product_count = Product.objects.count() 
     users_count= User.objects.count()
-    #plotting pie chart for the orders and the bar graph for the products
-    
+    #plotting pie chart for the orders
     orders=Order.objects.all()
     products=Product.objects.all()
     labels=[order.product.name for order in orders]
@@ -31,17 +32,17 @@ def index(request):
     buffer.seek(0)
     pie_chart = base64.b64encode(buffer.read()).decode('utf-8')
     buffer.close()
+
+    #plotting bar graph for the roducts
     labels = [product.name for product in products]
     data = [product.quantity for product in products]
-
     plt.figure(figsize=(8, 6))
-    plt.bar(labels, data, color='skyblue')
+    bars=plt.bar(labels, data, color=plt.cm.Paired.colors)
+    plt.legend(bars, labels, loc='upper left')
     plt.title('Products',fontsize=16)
-
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
-
     bar_graph = base64.b64encode(buffer.read()).decode('utf-8')
     buffer.close()
 
@@ -63,13 +64,15 @@ def index(request):
         'order_count': order_count,
         'product_count': product_count,
         'users_count' : users_count,
+        'recent_name': recent_name,
     }
     return render(request,'dashboard/index.html',context)
 
 #view for the staff page
 @login_required
 def staff(request):
-    #return HttpResponse('This is the staff page')
+    most_recent_entry = Order.objects.latest('date')
+    recent_name=most_recent_entry.staff.username
     order_count = Order.objects.count() 
     product_count = Product.objects.count() 
     users_count= User.objects.count()
@@ -79,12 +82,15 @@ def staff(request):
         'order_count':order_count,
         'product_count': product_count,
         'users_count' : users_count,
+        'recent_name': recent_name,
     }
     return render(request,'dashboard/staff.html',context)
 
 #view for the staff_details page , as and when the admin will click on view button
 @login_required
 def staff_detail(request,primaryKey):
+    most_recent_entry = Order.objects.latest('date')
+    recent_name=most_recent_entry.staff.username
     order_count = Order.objects.count() 
     product_count = Product.objects.count() 
     users_count= User.objects.count()
@@ -95,6 +101,7 @@ def staff_detail(request,primaryKey):
         'order_count':order_count,
         'product_count': product_count,
         'users_count' : users_count,
+        'recent_name': recent_name,
     }
     return render(request,'dashboard/staff_detail.html',context)
 
@@ -103,6 +110,8 @@ def staff_detail(request,primaryKey):
 def product(request):
     #return HttpResponse('This is the staff page')
     #items=Product.objects.all()
+    most_recent_entry = Order.objects.latest('date')
+    recent_name=most_recent_entry.staff.username
     order_count = Order.objects.count() 
     product_count = Product.objects.count() 
     users_count= User.objects.count()
@@ -124,6 +133,7 @@ def product(request):
         'order_count':order_count,
         'product_count': product_count,
         'users_count' : users_count,
+        'recent_name': recent_name,
     }
     return render(request,'dashboard/product.html',context)
 
@@ -131,6 +141,8 @@ def product(request):
 @login_required
 def order(request):
     #return HttpResponse('This is the staff page')
+    most_recent_entry = Order.objects.latest('date')
+    recent_name=most_recent_entry.staff.username
     order_count = Order.objects.count() 
     product_count = Product.objects.count() 
     users_count= User.objects.count()
@@ -140,6 +152,7 @@ def order(request):
         'order_count':order_count,
         'product_count': product_count,
         'users_count' : users_count,
+        'recent_name': recent_name,
     }
     return render(request,'dashboard/order.html',context)
 
