@@ -87,6 +87,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+#Linked the Database here
 
 
 # Password validation
