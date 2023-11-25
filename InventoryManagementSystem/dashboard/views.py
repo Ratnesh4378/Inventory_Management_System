@@ -13,6 +13,9 @@ from io import BytesIO
 @login_required
 def index(request):
     #return HttpResponse('This is the index page')
+    order_count = Order.objects.count() 
+    product_count = Product.objects.count() 
+    users_count= User.objects.count()
     orders=Order.objects.all()
     products=Product.objects.all()
     labels=[order.product.name for order in orders]
@@ -53,23 +56,39 @@ def index(request):
         'products':products,
         'pie_chart': pie_chart,
         'bar_graph': bar_graph,
+        'order_count': order_count,
+        'product_count': product_count,
+        'users_count' : users_count,
     }
     return render(request,'dashboard/index.html',context)
 
 @login_required
 def staff(request):
     #return HttpResponse('This is the staff page')
+    order_count = Order.objects.count() 
+    product_count = Product.objects.count() 
+    users_count= User.objects.count()
     workers=User.objects.all()
     context={
         'workers':workers,
+        'order_count':order_count,
+        'product_count': product_count,
+        'users_count' : users_count,
     }
     return render(request,'dashboard/staff.html',context)
 
 @login_required
 def staff_detail(request,primaryKey):
+    order_count = Order.objects.count() 
+    product_count = Product.objects.count() 
+    users_count= User.objects.count()
+    
     workers=User.objects.get(id=primaryKey)
     context={
         'workers':workers,
+        'order_count':order_count,
+        'product_count': product_count,
+        'users_count' : users_count,
     }
     return render(request,'dashboard/staff_detail.html',context)
 
@@ -77,7 +96,9 @@ def staff_detail(request,primaryKey):
 def product(request):
     #return HttpResponse('This is the staff page')
     #items=Product.objects.all()
-
+    order_count = Order.objects.count() 
+    product_count = Product.objects.count() 
+    users_count= User.objects.count()
     items=Product.objects.raw('SELECT * FROM dashboard_product')
     if request.method=='POST':
         form= ProductForm(request.POST)
@@ -93,15 +114,24 @@ def product(request):
     context={
         'items':items,
         'form':form,
+        'order_count':order_count,
+        'product_count': product_count,
+        'users_count' : users_count,
     }
     return render(request,'dashboard/product.html',context)
 
 @login_required
 def order(request):
     #return HttpResponse('This is the staff page')
+    order_count = Order.objects.count() 
+    product_count = Product.objects.count() 
+    users_count= User.objects.count()
     orders=Order.objects.all()
     context={
         'orders':orders,
+        'order_count':order_count,
+        'product_count': product_count,
+        'users_count' : users_count,
     }
     return render(request,'dashboard/order.html',context)
 
